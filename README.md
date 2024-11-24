@@ -1,1 +1,2 @@
-"# Tecsup Connect" 
+"# Tecsup Connect"
+"#(npm run install-all)"

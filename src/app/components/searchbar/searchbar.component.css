@@ -1,0 +1,39 @@
+.search-bar-container {
+  display: flex;
+  align-items: center; /* Asegura que estén alineados verticalmente */
+  width: 100%; 
+  margin-top: 20px;
+
+  .search-bar {
+    margin-left: 80px;
+    flex: 0.8; /* Ocupa el máximo espacio disponible */
+    height: 40px;
+    border: none;
+    border-radius: 20px;
+    padding: 0 15px;
+    background-color: #ece6f0; 
+    outline: none;
+    min-width: 500px;
+  }
+
+  .publish-button {
+    display: flex;
+    align-items: center;
+    margin-left: 10px; /* Espaciado entre la barra y el botón */
+    padding: 10px 15px;
+    border: none;
+    border-radius: 20px;
+    background-color: #00b2e3; 
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+
+    i {
+      margin-right: 8px; /* Espaciado entre el ícono y el texto */
+    }
+
+    &:hover {
+      background-color: darken(#00b2e3, 10%); /* Color más oscuro al pasar el mouse */
+    }
+  }
+}

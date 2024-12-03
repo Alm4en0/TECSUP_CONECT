@@ -1,0 +1,27 @@
+<div class="card-container" *ngFor="let blog of blogs">
+    <div class="card">
+      <div class="card-header">
+        <img [src]="blog.user.profile" alt="User Profile" class="profile-img" />
+        <div class="user-info">
+          <p class="user-name">{{ blog.user.name }}</p>
+          <p class="post-date">{{ blog.date }}</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <p class="blog-content">{{ blog.content | slice: 0:300 }}...</p>
+      </div>
+      <div class="card-footer">
+        <div class="blog-buttons">
+          <button [ngClass]="{ active: blog.type === 'informativo' }">Informativo</button>
+          <button [ngClass]="{ active: blog.type === 'consulta' }">Consulta</button>
+        </div>
+        <div class="blog-icons">
+          <i class="icon fa fa-thumbs-up"></i>
+          <i class="icon fa fa-comment"></i>
+          <i class="icon fa fa-bookmark"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  

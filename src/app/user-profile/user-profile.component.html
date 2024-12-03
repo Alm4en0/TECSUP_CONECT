@@ -1,0 +1,16 @@
+<div class="user-profile">
+    <div class="profile-header">
+      <img [src]="user.profileImage" alt="User Profile" class="profile-img" />
+      <h2>{{ user.name }}</h2>
+      <p>{{ user.cycle }} - {{ user.career }}</p>
+    </div>
+  
+    <div class="tabs">
+      <button (click)="setTab('posts')" [class.active]="activeTab === 'posts'">Posts</button>
+      <button (click)="setTab('saved')" [class.active]="activeTab === 'saved'">Saved</button>
+    </div>
+  
+    <!-- Muestra los blogs filtrados -->
+    <app-user-blogs [blogs]="filteredBlogs"></app-user-blogs>
+  </div>
+  

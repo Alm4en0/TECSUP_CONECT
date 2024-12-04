@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .profile-container {
     display: flex;
     flex-direction: column;
@@ -61,3 +62,107 @@
     color: white;
   }
   
+=======
+.user-profile { 
+  display: flex;
+  flex-direction: column;
+  padding-left: 350px;
+  padding-right: 350px; /* Solo aplica el padding a la izquierda y derecha */
+}
+
+.profile-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 20px;
+}
+
+.profile-img-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 3px solid #00B2E3;
+}
+
+.profile-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 40px;
+}
+
+.profile-info h2 {
+  margin-bottom: 10px;
+}
+
+.profile-info .row {
+  display: flex;
+  gap: 40px;
+}
+
+.profile-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.btn-edit {
+  background-color: #00B2E3;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.btn-logout {
+  background-color: grey;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+/* Línea separadora */
+.separator {
+  border: none;
+  border-top: 1px solid #00B2E3;
+  margin: 20px 0;
+}
+
+
+/* Tabs */
+.tabs {
+  display: flex;
+  justify-content: start; /* Centra los botones de las pestañas */
+  margin-left: 100px;
+  gap: 15px; /* Espacio entre las pestañas */
+  margin-bottom: 20px;
+}
+
+.tabs button {
+  border: none;
+  padding: 12px 30px; /* Padding agregado */
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 25px; /* Bordes redondeados */
+  background-color: #f0f0f0;
+  transition: background-color 0.3s;
+}
+
+.tabs button.active {
+  background-color: #00b2e3;
+  color: white;
+}
+
+.tabs button:hover {
+  background-color: #cceeff;
+}
+>>>>>>> f7e00d106f1ed2ab2e89fb20306bd10d377a4dc8

@@ -19,8 +19,6 @@
     "@angular/platform-browser": "^18.2.0",
     "@angular/platform-browser-dynamic": "^18.2.0",
     "@angular/router": "^18.2.0",
-    "all": "^0.0.0",
-    "firebase": "^11.0.2",
     "font-awesome": "^4.7.0",
     "frontend": "file:",
     "google-auth-library": "^9.15.0",

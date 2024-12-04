@@ -1,0 +1,50 @@
+
+<div class="blog-details">
+    <app-sidebar></app-sidebar>
+ 
+    <!-- Título del blog -->
+    <h1 class="blog-title">{{ blog?.title }}</h1>
+  
+    <!-- Autor e información -->
+    <div class="blog-meta">
+      <img [src]="blog?.user.profile" alt="Profile" class="profile-img">
+      <span class="user-name">{{ blog?.user.name }}</span>
+      <span class="date">{{ blog?.date }}</span>
+    </div>
+  
+    <!-- Imagen del blog -->
+    <div *ngIf="blog?.image" class="blog-image">
+      <img [src]="blog.image" alt="Blog Image">
+    </div>
+  
+    <!-- Contenido del blog -->
+    <p class="blog-content">{{ blog?.content }}</p>
+  
+    <!-- Pregunta y formulario -->
+    <div class="blog-question">
+      <h1>¿Te gustaría responder?</h1>
+      <button (click)="toggleResponseForm()">Responder</button>
+    </div>
+  
+    <div class="response-form" *ngIf="showResponseForm">
+      <textarea placeholder="Escribe tu respuesta aquí"></textarea>
+      <div class="file-input">
+        <input type="file" accept="image/*" />
+      </div>
+      <button class="send-button" (click)="submitResponse()">Enviar</button>
+    </div>
+  
+    <!-- Respuestas -->
+    <div class="responses">
+      <h2>Respuestas</h2>
+      <div *ngFor="let response of responses" class="response-card">
+        <img [src]="response.user.profile" alt="User Profile" class="profile-img">
+        <div class="response-content">
+          <p><strong>{{ response.user.name }}</strong></p>
+          <p>{{ response.response }}</p>
+          <img *ngIf="response.image" [src]="response.image" alt="Response Image">
+        </div>
+      </div>
+    </div>
+  </div>
+  

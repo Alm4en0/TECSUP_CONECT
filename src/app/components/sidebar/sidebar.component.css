@@ -1,4 +1,5 @@
 .sidebar {
+<<<<<<< HEAD
   position: fixed;
   top: 0;
   left: 0;
@@ -18,6 +19,8 @@
     }
   }
 
+=======
+>>>>>>> f7e00d106f1ed2ab2e89fb20306bd10d377a4dc8
   .nav-links {
     list-style: none;
     padding: 0;
@@ -45,3 +48,106 @@
     }
   }
 }
+<<<<<<< HEAD
+=======
+/* Barra de navegación */
+.sidebar {
+  width: 250px; /* Ajusta según el diseño */
+  background-color: #ffffff; /* Color de fondo */
+  border-radius: 10px; /* Bordes redondeados */
+  padding: 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  
+  .logo {
+    text-align: center;
+    margin: 40px 0; 
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+}
+
+.nav-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.nav-links li {
+  margin: 20px 0;
+}
+
+.nav-links li a, .publish-button {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: #333;
+}
+
+.publish-button {
+  background-color: #00B2E3;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  width: 500px; /* Ancho fijo */
+  max-width: 90%; /* Responsivo */
+  height: auto; /* Ajustable según el contenido */
+  position: relative; /* Necesario para la "X" */
+}
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+/* Estilos adicionales */
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+button {
+  background-color: #00B2E3;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #008bb5;
+}
+>>>>>>> f7e00d106f1ed2ab2e89fb20306bd10d377a4dc8

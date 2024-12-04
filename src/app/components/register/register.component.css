@@ -31,7 +31,7 @@ body {
 .form-container {
   flex: 1;
   background-color: #f2f2f2;
-  padding: 60px; /* Padding ajustado para no ser tan grande */
+  padding: 40px; /* Padding ajustado para no ser tan grande */
   border-radius: 16px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -43,7 +43,7 @@ body {
 }
 
 .top-image {
-  width: 100px;
+  width: 350px;
   position: absolute;
   top: 30px;
 }
@@ -74,10 +74,10 @@ input, select {
 }
 
 input::placeholder {
-  text-align: center; /* Centramos el texto del placeholder */
+  text-align: center;
 }
 
-/* Ajuste para los campos de nombre y apellido */
+/* Campos de nombre y apellido */
 .form-group-inline {
   display: flex;
   justify-content: space-between;
@@ -85,7 +85,7 @@ input::placeholder {
 }
 
 .form-group-inline input {
-  width: 100%; /* Ancho del 50% para que los campos estén al lado */
+  width: 100%; 
 }
 
 /* Estilo para los checkboxes */
@@ -97,10 +97,10 @@ input::placeholder {
 }
 
 .checkbox-group input {
-  appearance: none; /* Quita el estilo por defecto */
+  appearance: none; 
   width: 20px;
   height: 20px;
-  border-radius: 50%; /* Hacemos los checkboxes circulares */
+  border-radius: 50%; 
   border: 2px solid #00b2e3;
   position: relative;
   cursor: pointer;

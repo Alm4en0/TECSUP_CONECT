@@ -1,163 +1,80 @@
 const Usuario = require("../models/User");
-const bcrypt = require("bcryptjs"); // Para encriptar contraseñas
-const jwt = require("jsonwebtoken"); // Para manejar la autenticación basada en tokens
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
-// Crear un nuevo usuario
-const crearUsuario = async (req, res) => {
+// Registrar un nuevo usuario
+const register = async (req, res) => {
+  const { nombres, apellidos, correo, contrasena, rol, carreraId, ciclo } = req.body;
+
   try {
-    const {
-      nombres,
-      apellidos,
-      correo,
-      contrasena,
-      rol,
-      carreraId,
-      ciclo,
-      fotoPerfil,
-    } = req.body;
-
-    // Validación básica
-    if (
-      !nombres ||
-      !apellidos ||
-      !correo ||
-      !contrasena ||
-      !rol ||
-      !carreraId ||
-      !ciclo
-    ) {
-      return res.status(400).json({ mensaje: "Faltan datos requeridos" });
-    }
-
-    // Verificar si el correo ya existe
+    // Validar si el correo ya está registrado
     const usuarioExistente = await Usuario.findOne({ correo });
     if (usuarioExistente) {
-      return res.status(400).json({ mensaje: "El correo ya está registrado" });
+      return res.status(400).json({ mensaje: "El correo ya está registrado." });
+    }
+
+    // Validar dominio del correo
+    if (!/@tecsup\.edu\.pe$/.test(correo)) {
+      return res.status(400).json({ mensaje: "El correo debe pertenecer al dominio tecsup.edu.pe." });
     }
 
     // Encriptar la contraseña
-    const salt = await bcrypt.genSalt(10);
-    const contrasenaEncriptada = await bcrypt.hash(contrasena, salt);
+    const hashedPassword = await bcrypt.hash(contrasena, 10);
 
-    // Crear un nuevo usuario
-    const nuevoUsuario = new Usuario({
+    // Crear nuevo usuario
+    const nuevoUsuario = new Usuario ({
       nombres,
       apellidos,
       correo,
-      contrasena: contrasenaEncriptada,
+      contrasena: hashedPassword,
       rol,
-      carreraId,
-      ciclo,
-      fotoPerfil,
+      carreraId
     });
 
-    // Guardar en la base de datos
     await nuevoUsuario.save();
 
-    // Enviar respuesta
-    res
-      .status(201)
-      .json({ mensaje: "Usuario creado exitosamente", usuario: nuevoUsuario });
+    res.status(201).json({ mensaje: "Usuario registrado exitosamente." });
   } catch (error) {
     console.error(error);
-    res
-      .status(500)
-      .json({ mensaje: "Error al crear el usuario", error: error.message });
+    res.status(500).json({ mensaje: "Error al registrar el usuario." });
   }
 };
 
-// Obtener todos los usuarios
-const obtenerUsuarios = async (req, res) => {
-  try {
-    const usuarios = await Usuario.find()
-      .populate("rol", "nombre")
-      .populate("carreraId", "nombre")
-      .exec();
-    res.status(200).json(usuarios);
-  } catch (error) {
-    console.error(error);
-    res
-      .status(500)
-      .json({ mensaje: "Error al obtener los usuarios", error: error.message });
-  }
-};
+// Iniciar sesión
+const login = async (req, res) => {
+  const { correo, contrasena } = req.body;
 
-// Obtener un usuario por su ID
-const obtenerUsuarioPorId = async (req, res) => {
   try {
-    const { id } = req.params;
-
-    const usuario = await Usuario.findById(id)
-      .populate("rol", "nombre")
-      .populate("carreraId", "nombre")
-      .exec();
+    // Buscar usuario por correo
+    const usuario = await Usuario.findOne({ correo });
     if (!usuario) {
-      return res.status(404).json({ mensaje: "Usuario no encontrado" });
+      return res.status(404).json({ mensaje: "Usuario no encontrado." });
     }
 
-    res.status(200).json(usuario);
-  } catch (error) {
-    console.error(error);
-    res
-      .status(500)
-      .json({ mensaje: "Error al obtener el usuario", error: error.message });
-  }
-};
-
-const actualizarUsuario = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const datosActualizados = req.body;
-
-    // Validar si el usuario existe
-    const usuario = await Usuario.findById(id);
-    if (!usuario) {
-      return res.status(404).json({ mensaje: "Usuario no encontrado" });
+    // Verificar contraseña
+    const contrasenaValida = await bcrypt.compare(contrasena, usuario.contrasena);
+    if (!contrasenaValida) {
+      return res.status(401).json({ mensaje: "Contraseña incorrecta." });
     }
 
-    // Actualizar el usuario con los datos enviados
-    const usuarioActualizado = await Usuario.findByIdAndUpdate(
-      id,
-      { $set: datosActualizados },
-      { new: true, runValidators: true }
+    // Generar token JWT
+    const token = jwt.sign(
+      { id: usuario._id, correo: usuario.correo, rol: usuario.rol },
+      process.env.JWT_SECRET,
+      { expiresIn: "1h" }
     );
 
-    res
-      .status(200)
-      .json({ mensaje: "Usuario actualizado", usuario: usuarioActualizado });
+    res.status(200).json({
+      mensaje: "Inicio de sesión exitoso.",
+      token,
+    });
   } catch (error) {
     console.error(error);
-    res
-      .status(500)
-      .json({
-        mensaje: "Error al actualizar el usuario",
-        error: error.message,
-      });
-  }
-};
-
-const eliminarUsuario = async (req, res) => {
-  try {
-    const { id } = req.params;
-
-    const usuarioEliminado = await Usuario.findByIdAndDelete(id);
-    if (!usuarioEliminado) {
-      return res.status(404).json({ mensaje: "Usuario no encontrado" });
-    }
-
-    res.status(200).json({ mensaje: "Usuario eliminado correctamente" });
-  } catch (error) {
-    console.error(error);
-    res
-      .status(500)
-      .json({ mensaje: "Error al eliminar el usuario", error: error.message });
+    res.status(500).json({ mensaje: "Error al iniciar sesión." });
   }
 };
 
 module.exports = {
-  crearUsuario,
-  obtenerUsuarios,
-  obtenerUsuarioPorId,
-  actualizarUsuario,
-  eliminarUsuario,
+  register,
+  login,
 };

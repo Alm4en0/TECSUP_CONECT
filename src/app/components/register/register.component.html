@@ -1,41 +1,42 @@
 <div class="container">
   <div class="image-container">
-    <img src="/src/app/assets/logoConnect.png" alt="Left Image" />
+    <img src="assets/blog.png" alt="Left Image" />
   </div>
   <div class="form-container">
-    <img src="assets/top-image.jpg" alt="Top Image" class="top-image" />
-    <form (ngSubmit)="onRegister()">
+    <img src="assets/connect.png" alt="Top Image" class="top-image" />
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <div class="form-group-inline">
         <div class="form-group">
-          <label>Nombre</label>
-          <input type="text" [(ngModel)]="user.firstName" name="firstName" placeholder="" required />
+          <label for="nombres">Nombres</label>
+          <input id="nombres" type="text" formControlName="nombres" required />
         </div>
         <div class="form-group">
-          <label>Apellido</label>
-          <input type="text" [(ngModel)]="user.lastName" name="lastName" placeholder="" required />
+          <label for="apellidos">Apellido</label>
+          <input id="apellidos" type="text" formControlName="apellidos" required />
         </div>
       </div>
 
       <div class="form-group">
-        <label>Correo</label>
-        <input type="email" [(ngModel)]="user.email" name="email" placeholder="" required />
+        <label for="correo">Correo</label>
+        <input id="correo" type="email" formControlName="correo" required />
       </div>
 
       <div class="form-group">
-        <label>Contraseña</label>
-        <input type="password" [(ngModel)]="user.password" name="password" placeholder="" required />
+        <label for="contrasena">Contraseña</label>
+        <input id="contrasena" type="password" formControlName="contrasena" required />
       </div>
 
       <div class="checkbox-group">
         <div>
           <label for="profesor">
-            <input type="radio" id="profesor" [(ngModel)]="user.tipoUsuario" name="tipoUsuario" value="profesor" />
+            <input type="radio" id="profesor" [value]="'profesor'" formControlName="rol" />
             Profesor
           </label>
         </div>
         <div>
           <label for="estudiante">
-            <input type="radio" id="estudiante" [(ngModel)]="user.tipoUsuario" name="tipoUsuario" value="estudiante" />
+            <input type="radio" id="estudiante" [value]="'estudiante'" formControlName="rol" />
             Estudiante
           </label>
         </div>
@@ -43,21 +44,21 @@
 
       <div class="form-group-inline">
         <div class="form-group">
-          <label>Carrera</label>
-          <select [(ngModel)]="user.carrera" name="carrera">
-            <option *ngFor="let carrera of carreras" [value]="carrera">{{ carrera }}</option>
+          <label for="carrera">Carrera</label>
+          <select id="carrera" formControlName="carreraId">
+            <option *ngFor="let carreraId of carreraId" [value]="carreraId">{{ carreraId }}</option>
           </select>
         </div>
-        <!-- El campo ciclo solo se muestra si tipoUsuario es estudiante -->
-        <div class="form-group" *ngIf="user.tipoUsuario === 'estudiante'">
-          <label>Ciclo</label>
-          <select [(ngModel)]="user.ciclo" name="ciclo">
-            <option *ngFor="let ciclo of ciclos" [value]="ciclo">{{ ciclo }}</option>
+        <div class="form-group" *ngIf="registerForm.get('rol')?.value === 'estudiante'">
+          <label for="ciclo">Ciclo</label>
+          <select id="ciclo" formControlName="ciclo">
+            <option *ngFor="let ciclo of ciclo" [value]="ciclo">{{ ciclo }}</option>
           </select>
         </div>
       </div>
 
-      <button type="submit" class="btn btn-primary">Registrarse</button>
+      <button type="submit" class="btn btn-primary">REGISTRARSE</button>
+      <button type="button" class="btn btn-link" (click)="navigateToLogin()">INICIO DE SESION</button>
     </form>
   </div>
 </div>

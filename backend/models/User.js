@@ -16,18 +16,17 @@ const usuarioSchema = new mongoose.Schema(
     },
     contrasena: { type: String },
     rol: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: String,
       ref: "Rol",
       required: true,
     },
     carreraId: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: String,
       ref: "Carrera",
       required: true,
     },
     ciclo: {
       type: Number,
-      required: true,
     },
     fotoPerfil: { type: String, default: null },
     fechaCreacion: { type: Date, default: Date.now },

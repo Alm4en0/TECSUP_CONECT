@@ -1,0 +1,18 @@
+.home {
+    display: flex;
+  
+    app-sidebar {
+      flex-shrink: 0; /* Asegura que la barra lateral no cambie de tamaño */
+    }
+  
+    .content {
+      flex-grow: 1; /* Permite que el contenido ocupe el espacio restante */
+      margin-left: 200px; /* Espacio igual al ancho de la barra lateral */
+      padding: 20px;
+      background-color: #f8f9fa;
+      height: 100vh; /* Asegura que el contenido tenga la misma altura */
+      overflow-y: auto; /* Permite el scroll si el contenido es muy grande */
+      border-left: 1px solid #e0e0e0; /* Línea de separación del contenido */
+    }
+  }
+  

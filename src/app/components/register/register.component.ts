@@ -1,33 +1,88 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, FormsModule],
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent {
-  user = {
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    tipoUsuario: 'profesor',  // Valor por defecto
-    carrera: '',
-    ciclo: '' // Solo se usa si es estudiante
-  };
+  registerForm: FormGroup;
+  loading = false;
+  errorMessage: string | null = null;
+  user: any;
 
-  carreras: string[] = ['Ingeniería de Software', 'Diseño Gráfico', 'Redes y Comunicaciones'];
-  ciclos: string[] = ['I', 'II', 'III', 'IV', 'V', 'VI'];
+  constructor(
+    private fb: FormBuilder,
+    private http: HttpClient,
+    private router: Router
+  ) {
+    // Crear el formulario
+    this.registerForm = this.fb.group({
+      nombres: ['', Validators.required],
+      apellidos: ['', Validators.required],
+      correo: ['', [Validators.required, Validators.email]],
+      contrasena: ['', [Validators.required, Validators.minLength(6)]],
+      rol: ['', [Validators.required]],
+      carreraId: ['', [Validators.required]],
+      ciclo: ['', [Validators.pattern('^[1-9]+[0-9]*$')]],
+    });
 
-  constructor() {}
+    // Cambiar validación del ciclo dependiendo del rol
+    this.registerForm.get('rol')?.valueChanges.subscribe(rol => {
+      const cicloControl = this.registerForm.get('ciclo');
+      if (rol === 'estudiante') {
+        cicloControl?.setValidators([Validators.required, Validators.pattern('^[1-9]+[0-9]*$')]);
+      } else {
+        cicloControl?.clearValidators();
+        cicloControl?.setValue(''); // Limpiar el valor de ciclo si es profesor
+      }
+      cicloControl?.updateValueAndValidity();
+    });
+  }
 
-  ngOnInit(): void {}
+  carreraId: string[] = ['Ingeniería de Software', 'Diseño Gráfico', 'Redes y Comunicaciones'];
+  ciclo: string[] = ['1', '2', '3', '4', '5', '6'];
 
-  onRegister(): void {
-    console.log('Registrando usuario:', this.user);
+  onSubmit() {
+    // Validar si el formulario es inválido
+    if (this.registerForm.invalid) return;
+
+    // Si el rol es "profesor", asegurarse de no enviar el ciclo
+    if (this.registerForm.get('rol')?.value === 'profesor') {
+      this.registerForm.get('ciclo')?.setValue(0); // Eliminar el valor de ciclo si es profesor
+    }
+
+    this.loading = true;
+    this.errorMessage = null;
+
+    // Enviar los datos al servidor
+    this.http.post('http://localhost:3000/api/users/register', this.registerForm.value).subscribe({
+      next: () => {
+        this.loading = false;
+        alert('Usuario registrado exitosamente.');
+        this.router.navigate(['/login']);
+      },
+      error: (err) => {
+        this.loading = false;
+        this.errorMessage = err.error.mensaje || 'Error al registrarse.';
+      },
+    });
+
+    // Limpiar los campos del formulario
+    this.limpiarCampos();
+  }
+
+  navigateToLogin() {
+    this.router.navigate(['/login']);
+  }
+
+  limpiarCampos() {
+    this.registerForm.reset();
   }
 }

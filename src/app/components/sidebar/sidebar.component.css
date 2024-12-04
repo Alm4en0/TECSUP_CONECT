@@ -1,0 +1,47 @@
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh; /* Extender toda la altura de la pantalla */
+  width: 200px;
+  background-color: #ffffff; 
+  padding: 20px;
+  box-shadow: 1px 0 5px rgba(0, 0, 0, 0.1); /* Línea de separación simulada con sombra */
+
+  .logo {
+    text-align: center;
+    margin: 40px 0; 
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+
+  .nav-links {
+    list-style: none;
+    padding: 0;
+
+    li {
+      display: flex;
+      align-items: center;
+      margin: 30px 5px; /* Más espacio entre los ítems */
+
+      .icon {
+        font-size: 20px;
+        margin-right: 10px;
+        color: #00b2e3;
+      }
+
+      a {
+        text-decoration: none;
+        color: #00b2e3;
+        font-size: 16px;
+        
+        &:hover {
+          color: #00b2e3;
+        }
+      }
+    }
+  }
+}

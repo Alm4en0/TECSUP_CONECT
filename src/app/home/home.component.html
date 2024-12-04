@@ -1,10 +1,8 @@
 <div class="home">
-    <app-sidebar></app-sidebar>
-    <div class="content">
-      <app-searchbar></app-searchbar>
-      <app-card-blog></app-card-blog>
-      <app-user-profile></app-user-profile>
-      <app-user-blogs></app-user-blogs>
-    </div>
+  <app-sidebar></app-sidebar>
+  <div class="content">
+    <app-searchbar></app-searchbar>
+    <app-card-blog></app-card-blog>
+    <router-outlet></router-outlet> <!-- Aquí irá el perfil solo cuando esté en su ruta -->
   </div>
-  
+</div>

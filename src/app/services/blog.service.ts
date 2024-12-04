@@ -7,17 +7,21 @@ export class BlogService {
   private blogs = [
     {
       id: 1,
+      title: '¿Qué es Angular y cómo empezar?',
       user: { name: 'Jane Doe', profile: 'https://via.placeholder.com/50' },
       date: '2024-12-01',
       content: 'Contenido del blog informativo 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
       type: 'informativo',
+      image: 'https://via.placeholder.com/600x300',
     },
     {
       id: 2,
+      title: 'Resolviendo dudas de programación',
       user: { name: 'John Smith', profile: 'https://via.placeholder.com/50' },
       date: '2024-11-29',
       content: 'Contenido del blog consulta 1. Curabitur pharetra, enim id facilisis ultricies, nunc urna cursus nunc.',
       type: 'consulta',
+      image: '',
     },
     {
       id: 3,
@@ -52,4 +56,10 @@ export class BlogService {
       totalBlogs: filteredBlogs.length,
     };
   }
+  getBlogById(id: number) {
+    return this.blogs.find(blog => blog.id === id);
+  }
+  
+
 }
+

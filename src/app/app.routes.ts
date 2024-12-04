@@ -5,6 +5,7 @@ import { HomeComponent } from './home/home.component';
 import { CardBlogComponent } from './components/card-blog/card-blog.component';
 import { UserBlogsComponent } from './user-blogs/user-blogs.component';
 import { UserProfileComponent } from './user-profile/user-profile.component';
+import { BlogDetailsComponent } from './blog-details/blog-details.component';
 
 export const routes: Routes = [
 { path: 'login', component: LoginComponent },
@@ -14,6 +15,8 @@ export const routes: Routes = [
   { path: 'blogs/:type', component: CardBlogComponent },
   { path: 'user', component: UserProfileComponent },
   { path: 'user/:username', component: UserProfileComponent },
+  { path: 'blog/:id', component: BlogDetailsComponent},
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: '**', redirectTo: '/home' }
+  { path: '**', redirectTo: '/home' },
+ 
 ];

@@ -1,4 +1,5 @@
 <div class="card-container" *ngFor="let blog of blogs">
+  <a [routerLink]="['/blog', blog.id]" class="card-link">
     <div class="card">
       <div class="card-header">
         <img [src]="blog.user.profile" alt="User Profile" class="profile-img" />
@@ -22,6 +23,5 @@
         </div>
       </div>
     </div>
-  </div>
-  
-  
+  </a>
+</div>

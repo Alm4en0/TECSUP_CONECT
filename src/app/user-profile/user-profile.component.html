@@ -1,16 +1,32 @@
 <div class="user-profile">
-    <div class="profile-header">
+  <app-sidebar></app-sidebar>
+  <!-- Cabecera del perfil -->
+  <div class="profile-header">
+    <div class="profile-img-container">
       <img [src]="user.profileImage" alt="User Profile" class="profile-img" />
+    </div>
+    <div class="profile-info">
       <h2>{{ user.name }}</h2>
-      <p>{{ user.cycle }} - {{ user.career }}</p>
+      <div class="row">
+        <p>{{ user.cycle }}</p>
+        <p>{{ user.career }}</p>
+      </div>
     </div>
-  
-    <div class="tabs">
-      <button (click)="setTab('posts')" [class.active]="activeTab === 'posts'">Posts</button>
-      <button (click)="setTab('saved')" [class.active]="activeTab === 'saved'">Saved</button>
+    <div class="profile-buttons">
+      <button class="btn-edit">Editar Perfil</button>
+      <button class="btn-logout">Cerrar Sesión</button>
     </div>
-  
-    <!-- Muestra los blogs filtrados -->
-    <app-user-blogs [blogs]="filteredBlogs"></app-user-blogs>
   </div>
-  
+
+  <!-- Línea de separación -->
+  <hr class="separator" />
+
+  <!-- Tabs de los blogs -->
+  <div class="tabs">
+    <button (click)="setTab('posts')" [class.active]="activeTab === 'posts'">Posts</button>
+    <button (click)="setTab('saved')" [class.active]="activeTab === 'saved'">Saved</button>
+  </div>
+
+  <!-- Sección de blogs filtrados -->
+  <app-user-blogs [blogs]="filteredBlogs"></app-user-blogs>
+</div>

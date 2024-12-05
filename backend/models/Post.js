@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const Usuario = require("./User");
-const Curso = require("./Curso");
 const Carrera = require("./Carrera");
 const Comentario = require("./Comentario");
 
@@ -12,22 +11,17 @@ const postSchema = new mongoose.Schema({
   },
   titulo: { type: String, required: true },
   contenido: { type: String, required: true },
-  tipo: { type: String, enum: ["pregunta", "información"], required: true },
+  tipo: { type: String, enum: ["pregunta", "informacion"], required: true },
   carrera: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Carrera",
     required: true,
   },
-  curso: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Curso",
-    default: null,
-  },
   archivosAdjuntos: [
     {
-      nombreArchivo: { type: String },
-      urlArchivo: { type: String },
-      tipoArchivo: { type: String },
+      nombreArchivo: { type: String, default: null },
+      urlArchivo: { type: String, default: null },
+      tipoArchivo: { type: String, default: null },
       subidoEl: { type: Date, default: Date.now },
     },
   ],

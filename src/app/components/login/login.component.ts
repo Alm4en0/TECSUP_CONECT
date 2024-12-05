@@ -49,7 +49,8 @@ export class LoginComponent implements OnInit {
     this.http.post('http://localhost:3000/api/users/login', { correo, contrasena }).subscribe({
       next: (response: any) => {
         this.loading = false;
-        localStorage.setItem('token', response.token);
+        localStorage.setItem('authToken', response.token);
+        localStorage.setItem('userId', response.userId);
         this.router.navigate(['/home']); 
 
       },
@@ -63,4 +64,5 @@ export class LoginComponent implements OnInit {
   navigateToRegister() {
     this.router.navigate(['/register']);
   }
+  
 }

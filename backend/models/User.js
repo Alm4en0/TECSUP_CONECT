@@ -28,6 +28,7 @@ const usuarioSchema = new mongoose.Schema(
     ciclo: {
       type: Number,
     },
+    posts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Post" }], // Relación con los posts
     fotoPerfil: { type: String, default: null },
     fechaCreacion: { type: Date, default: Date.now },
     fechaActualizacion: { type: Date, default: Date.now },

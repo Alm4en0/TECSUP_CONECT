@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { PublishButtonComponent } from "../../publish-button/publish-button.component";
+import { AuthUserService } from '../../services/auth-user.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -12,5 +13,17 @@ import { PublishButtonComponent } from "../../publish-button/publish-button.comp
   styleUrl: './sidebar.component.css'
 })
 export class SidebarComponent {
+
+  constructor(
+    private authService: AuthUserService
+  )
+  {}
+
+  cerrarSesion(){
+    console.log('Método cerrar Sesion llamado');
+
+    this.authService.logout();
+  }
+  
 
 }

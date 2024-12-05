@@ -11,13 +11,13 @@ const postSchema = new mongoose.Schema({
   },
   titulo: { type: String, required: true },
   contenido: { type: String, required: true },
-  tipo: { type: String, enum: ["pregunta", "informacion"], required: true },
-  carrera: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Carrera",
-    required: true,
-  },
-  archivosAdjuntos: [
+  tipo: { type: String, required: true },
+  // carrera: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: "Carrera",
+  //   required: true,
+  // },
+  file: [
     {
       nombreArchivo: { type: String, default: null },
       urlArchivo: { type: String, default: null },

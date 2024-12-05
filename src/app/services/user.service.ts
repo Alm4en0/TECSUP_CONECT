@@ -14,10 +14,6 @@ export class UserService {
 
   constructor(private http: HttpClient) {}
 
-  // Redirigir a Google para iniciar sesión
-  loginWithGoogle(): void {
-    window.location.href = `${this.apiUrl}/auth/google`;
-  }
 
   // Verificar si el usuario está autenticado
   verifyToken(): Observable<any> {

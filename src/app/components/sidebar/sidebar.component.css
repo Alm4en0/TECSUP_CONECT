@@ -1,26 +1,4 @@
 .sidebar {
-<<<<<<< HEAD
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh; /* Extender toda la altura de la pantalla */
-  width: 200px;
-  background-color: #ffffff; 
-  padding: 20px;
-  box-shadow: 1px 0 5px rgba(0, 0, 0, 0.1); /* Línea de separación simulada con sombra */
-
-  .logo {
-    text-align: center;
-    margin: 40px 0; 
-
-    img {
-      max-width: 100%;
-      height: auto;
-    }
-  }
-
-=======
->>>>>>> f7e00d106f1ed2ab2e89fb20306bd10d377a4dc8
   .nav-links {
     list-style: none;
     padding: 0;
@@ -48,8 +26,6 @@
     }
   }
 }
-<<<<<<< HEAD
-=======
 /* Barra de navegación */
 .sidebar {
   width: 250px; /* Ajusta según el diseño */
@@ -150,4 +126,3 @@ button {
 button:hover {
   background-color: #008bb5;
 }
->>>>>>> f7e00d106f1ed2ab2e89fb20306bd10d377a4dc8

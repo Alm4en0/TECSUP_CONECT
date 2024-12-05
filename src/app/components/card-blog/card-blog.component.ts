@@ -1,21 +1,13 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { BlogService } from '../../services/blog.service';
-<<<<<<< HEAD
-import { ActivatedRoute } from '@angular/router';
-=======
 import { ActivatedRoute, RouterLink } from '@angular/router';
->>>>>>> f7e00d106f1ed2ab2e89fb20306bd10d377a4dc8
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-card-blog',
   standalone: true,
-<<<<<<< HEAD
-  imports: [CommonModule],
-=======
   imports: [CommonModule, RouterLink],
->>>>>>> f7e00d106f1ed2ab2e89fb20306bd10d377a4dc8
   templateUrl: './card-blog.component.html',
   styleUrl: './card-blog.component.css'
 })

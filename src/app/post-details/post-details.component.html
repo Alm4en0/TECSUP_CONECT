@@ -1,0 +1,51 @@
+<div class="post-details">
+  <app-sidebar></app-sidebar>
+
+  <!-- Título del post -->
+  <h1 class="post-title">{{ post?.title }}</h1>
+
+  <!-- Autor e información -->
+  <div class="post-meta">
+    <img [src]="post?.user.profileImage || 'assets/foto-default.png'"
+      alt="Profile" class="profile-img">
+    <span class="user-name">{{ post?.user.name }}</span>
+    <span class="date">{{ post?.createdAt | date }}</span>
+  </div>
+
+  <!-- Imagen del post -->
+  <div *ngIf="post?.image" class="post-image">
+    <img [src]="post.image" alt="Post Image">
+  </div>
+
+  <!-- Contenido del post -->
+  <p class="post-content">{{ post?.content }}</p>
+
+  <!-- Pregunta y formulario -->
+  <div class="post-question">
+    <h1>¿Te gustaría responder?</h1>
+    <button (click)="toggleResponseForm()">Responder</button>
+  </div>
+
+  <div class="response-form" *ngIf="showResponseForm">
+    <textarea [(ngModel)]="newResponseText"
+      placeholder="Escribe tu respuesta aquí"></textarea>
+    <div class="file-input">
+      <input type="file" accept="image/*" (change)="onFileSelected($event)" />
+    </div>
+    <button class="send-button" (click)="submitResponse()">Enviar</button>
+  </div>
+
+  <!-- Respuestas -->
+  <div class="responses">
+    <h2>Respuestas</h2>
+    <div *ngFor="let response of responses" class="response-card">
+      <img [src]="response.user.profileImage" alt="User Profile"
+        class="profile-img">
+      <div class="response-content">
+        <p><strong>{{ response.user.name }}</strong></p>
+        <p>{{ response.text }}</p>
+        <img *ngIf="response.image" [src]="response.image" alt="Response Image">
+      </div>
+    </div>
+  </div>
+</div>

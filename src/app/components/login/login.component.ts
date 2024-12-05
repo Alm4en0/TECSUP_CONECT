@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -30,12 +35,10 @@ export class LoginComponent implements OnInit {
     });
   }
 
-
   ngOnInit(): void {
-    if (this.authService.isAutenticated()) {
-      this.router.navigate(['/home']);  // Redirige al home si está autenticado
+    if (this.authService.isAuthenticated()) {
+      this.router.navigate(['/home']); // Redirige al home si está autenticado
     }
-
   }
 
   onSubmit() {
@@ -46,12 +49,11 @@ export class LoginComponent implements OnInit {
 
     const { correo, contrasena } = this.loginForm.value;
 
-    this.http.post('http://localhost:3000/api/users/login', { correo, contrasena }).subscribe({
+    this.authService.login(correo, contrasena).subscribe({
       next: (response: any) => {
         this.loading = false;
         localStorage.setItem('token', response.token);
-        this.router.navigate(['/home']); 
-
+        this.router.navigate(['/home']);
       },
       error: (err) => {
         this.loading = false;

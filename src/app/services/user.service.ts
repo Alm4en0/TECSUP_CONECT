@@ -7,35 +7,56 @@ import { tap } from 'rxjs/operators';
   providedIn: 'root',
 })
 export class UserService {
-  private apiUrl = 'http://localhost:3000'; // Cambia según tu backend
+  private apiUrl = 'http://localhost:3000/api/users'; // Cambia según tu backend
   private userSubject = new BehaviorSubject<any>(null);
 
   user$ = this.userSubject.asObservable();
 
   constructor(private http: HttpClient) {}
 
-  // Redirigir a Google para iniciar sesión
-  loginWithGoogle(): void {
-    window.location.href = `${this.apiUrl}/auth/google`;
+  verifyToken(): Observable<any> {
+    const token = localStorage.getItem('token');
+    console.log('Token recuperado:', token); // Verifica que el token no sea null o vacío
+
+    if (!token) {
+      return new Observable((observer) => observer.next(null));
+    }
+
+    return this.http
+      .get(`${this.apiUrl}/me`, {
+        headers: { Authorization: `Bearer ${token}` }, // Enviar el token con "Bearer"
+      })
+      .pipe(
+        tap((user) => {
+          this.userSubject.next(user); // Almacena los datos del usuario
+        })
+      );
   }
 
-  // Verificar si el usuario está autenticado
-  verifyToken(): Observable<any> {
-    return this.http.get(`${this.apiUrl}/auth/verify`).pipe(
-      tap((user) => {
-        this.userSubject.next(user);
+  // Obtener los datos del usuario
+  getUser(): Observable<any> {
+    return this.http.get<any>(this.apiUrl + '/me');
+  }
+
+  // Obtener el ID del usuario autenticado
+  getUserId(): string | null {
+    const user = this.userSubject.value;
+    return user ? user._id : null; // Asumiendo que el ID del usuario está en la propiedad '_id'
+  }
+
+  // Iniciar sesión manualmente (con credenciales normales, no Google)
+  login(username: string, password: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/login`, { username, password }).pipe(
+      tap((response: any) => {
+        localStorage.setItem('token', response.token); // Guarda el token
+        this.userSubject.next(response.user); // Almacena los datos del usuario
       })
     );
   }
 
-  // Obtener datos del usuario
-  getUser(): Observable<any> {
-    return this.user$;
-  }
-
   // Cerrar sesión
   logout(): void {
-    this.userSubject.next(null);
-    // Opcionalmente puedes hacer una petición al backend para cerrar sesión.
+    localStorage.removeItem('token'); // Remueve el token
+    this.userSubject.next(null); // Limpia los datos del usuario
   }
 }

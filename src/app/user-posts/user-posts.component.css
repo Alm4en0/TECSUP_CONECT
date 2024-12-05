@@ -1,0 +1,62 @@
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+}
+
+.profile-photo img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profile-info h2 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.profile-info p {
+  margin: 5px 0;
+}
+
+.profile-actions button {
+  width: 150px;
+  margin-bottom: 10px;
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  color: white;
+}
+
+.edit-btn {
+  background-color: #00b2e3;
+}
+
+.publish-btn {
+  background-color: #ccc;
+}
+
+.divider {
+  height: 2px;
+  background-color: #00b2e3;
+  border: none;
+}
+
+.filter-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.filter-buttons button {
+  padding: 10px;
+  border: none;
+  cursor: pointer;
+  background-color: #f0f0f0;
+}
+
+.filter-buttons button.active {
+  background-color: #00b2e3;
+  color: white;
+}

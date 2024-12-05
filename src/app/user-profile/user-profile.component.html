@@ -1,50 +1,37 @@
 <div class="user-profile">
-<<<<<<< HEAD
-    <div class="profile-header">
-      <img [src]="user.profileImage" alt="User Profile" class="profile-img" />
-      <h2>{{ user.name }}</h2>
-      <p>{{ user.cycle }} - {{ user.career }}</p>
-    </div>
-  
-    <div class="tabs">
-      <button (click)="setTab('posts')" [class.active]="activeTab === 'posts'">Posts</button>
-      <button (click)="setTab('saved')" [class.active]="activeTab === 'saved'">Saved</button>
-    </div>
-  
-    <!-- Muestra los blogs filtrados -->
-    <app-user-blogs [blogs]="filteredBlogs"></app-user-blogs>
-  </div>
-  
-=======
   <app-sidebar></app-sidebar>
+
   <!-- Cabecera del perfil -->
   <div class="profile-header">
     <div class="profile-img-container">
-      <img [src]="user.profileImage" alt="User Profile" class="profile-img" />
+      <img
+        [src]="user.profileImage || 'assets/foto-default.png'"
+        alt="User Profile"
+        class="profile-img" />
     </div>
     <div class="profile-info">
       <h2>{{ user.name }}</h2>
-      <div class="row">
-        <p>{{ user.cycle }}</p>
-        <p>{{ user.career }}</p>
-      </div>
+      <p>{{ user.cycle }}</p>
+      <p>{{ user.career }}</p>
     </div>
     <div class="profile-buttons">
-      <button class="btn-edit">Editar Perfil</button>
-      <button class="btn-logout">Cerrar Sesión</button>
+      <button class="btn-edit">
+        <i class="fa fa-edit"></i> Editar Perfil
+      </button>
+      <app-publish-button></app-publish-button>
     </div>
   </div>
 
-  <!-- Línea de separación -->
-  <hr class="separator" />
-
-  <!-- Tabs de los blogs -->
+  <!-- Botones de filtrado -->
   <div class="tabs">
-    <button (click)="setTab('posts')" [class.active]="activeTab === 'posts'">Posts</button>
-    <button (click)="setTab('saved')" [class.active]="activeTab === 'saved'">Saved</button>
+    <button (click)="setTab('posts')" [class.active]="activeTab === 'posts'">
+      Publicaciones
+    </button>
+    <button (click)="setTab('saved')" [class.active]="activeTab === 'saved'">
+      Guardado
+    </button>
   </div>
 
   <!-- Sección de blogs filtrados -->
   <app-user-blogs [blogs]="filteredBlogs"></app-user-blogs>
 </div>
->>>>>>> f7e00d106f1ed2ab2e89fb20306bd10d377a4dc8

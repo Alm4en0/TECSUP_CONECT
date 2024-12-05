@@ -1,11 +1,16 @@
-
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  position: relative;
+}
 
 .image-container {
   flex: 1;
-  display: flex;
   justify-content: center;
   align-items: center;
-  margin-left: 50px; /* Margin-left agregado para separar la imagen */
+  margin-left: 150px;
 }
 
 .image-container img {
@@ -17,7 +22,7 @@
 .form-container {
   flex: 1;
   background-color: #f2f2f2;
-  padding: 50px; /* Padding ajustado para no ser tan grande */
+  padding: 30px; /* Reduced padding */
   border-radius: 16px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
@@ -26,20 +31,25 @@
   justify-content: center;
   max-width: 450px;
   margin-right: 60px;
-  margin-top: 70px;
+  position: relative;
+  margin-top: 70px; /* Added for positioning child elements */
 }
 
 .top-image {
   width: 350px;
-  position: absolute;
-  top: 50px;
-  
+  position: absolute; /* Position absolutely within form-container */
+  top: -1px; /* Adjust this value to move the image up */
+  right: 0%;
+  transform: translateX(-50%); /* Center the image horizontally */
+  z-index: 10; /* Ensure it's above other elements */
 }
 
 form {
   width: 100%;
-  margin-top: 15px; /* Espacio entre la imagen y el formulario */
+  margin-top: 50px; /* Increased to make space for the top image */
 }
+
+/* Rest of your CSS remains the same */
 
 .form-group {
   margin-bottom: 15px;
@@ -107,10 +117,12 @@ button {
 }
 
 /* Hover effects */
-button:hover, .g_id_signin:hover {
+button:hover,
+.g_id_signin:hover {
   filter: brightness(0.9);
 }
 
-button:active, .g_id_signin:active {
+button:active,
+.g_id_signin:active {
   transform: scale(0.98);
-} 
+}

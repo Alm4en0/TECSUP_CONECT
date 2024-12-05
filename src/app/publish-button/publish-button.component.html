@@ -1,51 +1,65 @@
 <div class="search-bar-container">
-    <button class="publish-button" (click)="toggleModal()">
-      <i class="fa fa-plus"></i> Publicar
-    </button>
-  
-    <!-- Modal -->
-    <div class="modal" *ngIf="isModalOpen">
-      <div class="modal-content">
-        <h2 class="modal-title">Agrega tu post</h2>
-        <form>
-          <span class="modal-close" (click)="toggleModal()">×</span>
-          <!-- Campo de título -->
+  <button class="publish-button" (click)="toggleModal()">
+    <i class="fa fa-plus"></i> Publicar
+  </button>
+
+  <!-- Modal -->
+  <div class="modal" *ngIf="isModalOpen">
+    <div class="modal-content">
+      <span class="modal-close" (click)="toggleModal()">×</span>
+      <h2 class="modal-title">Agrega tu post</h2>
+      <form [formGroup]="postForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
           <label for="title">Título</label>
           <input
+            formControlName="titulo"
             type="text"
             id="title"
             placeholder="Escribe el título del post"
-            class="input-field"
-          />
-  
-          <!-- Campo de contenido -->
+            class="input-field" />
+        </div>
+
+        <div class="form-group">
           <label for="content">Contenido</label>
           <textarea
+            formControlName="contenido"
             id="content"
             placeholder="Escribe el contenido del post"
-            class="textarea-field"
-          ></textarea>
-  
-          <!-- Selector de tipo de blog -->
+            class="textarea-field"></textarea>
+        </div>
+
+        <div class="form-group">
           <label for="type">Tipo de blog</label>
-          <select id="type" class="select-field">
+          <select formControlName="tipo" id="type" class="select-field">
             <option value="informativo">Informativo</option>
             <option value="pregunta">Pregunta</option>
           </select>
-  
-          <!-- Botones -->
-          <div class="button-group">
-            <button
-              type="button"
-              class="modal-button"
-              (click)="simulateAddMedia()"
-            >
-              Agregar multimedia
-            </button>
-            <button type="submit" class="modal-button">Guardar</button>
-          </div>
-        </form>
-      </div>
+        </div>
+
+        <div class="form-group">
+          <label for="carrera">Carrera</label>
+          <select formControlName="carrera" id="carrera" class="select-field">
+            <option *ngIf="carreras.length === 0" value>Cargando
+              carreras...</option> <!-- Mensaje mientras se cargan -->
+            <option *ngFor="let carrera of carreras" [value]="carrera._id">
+              {{ carrera.nombre }}
+            </option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="file">Subir archivo</label>
+          <input
+            type="file"
+            id="file"
+            (change)="onFileChange($event)"
+            class="input-field" />
+        </div>
+
+        <div class="button-group">
+          <button type="submit" class="modal-button">Guardar</button>
+        </div>
+      </form>
     </div>
   </div>
-  
+</div>

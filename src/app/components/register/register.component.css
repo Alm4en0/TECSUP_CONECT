@@ -1,8 +1,8 @@
 /* Aplica la fuente Roboto a toda la página */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   margin: 0;
   padding: 0;
 }
@@ -65,7 +65,8 @@ label {
 }
 
 /* Estilo para inputs y selects */
-input, select {
+input,
+select {
   width: 100%;
   padding: 12px;
   border: 1px solid #ccc;
@@ -85,7 +86,7 @@ input::placeholder {
 }
 
 .form-group-inline input {
-  width: 100%; 
+  width: 100%;
 }
 
 /* Estilo para los checkboxes */
@@ -93,17 +94,19 @@ input::placeholder {
   display: flex;
   gap: 30px;
   margin-bottom: 15px;
-  justify-content: flex-start;
+  align-items: center;
 }
 
 .checkbox-group input {
-  appearance: none; 
+  appearance: none;
   width: 20px;
   height: 20px;
-  border-radius: 50%; 
+  border-radius: 50%;
   border: 2px solid #00b2e3;
   position: relative;
   cursor: pointer;
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 .checkbox-group input:checked {
@@ -111,7 +114,7 @@ input::placeholder {
 }
 
 .checkbox-group input:checked::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 4px;
   left: 4px;
@@ -125,6 +128,9 @@ input::placeholder {
   margin-left: 8px; /* Espacio entre el círculo y el texto */
   font-weight: normal;
   font-size: 16px;
+  line-height: 20px;
+  display: flex;
+  align-items: center;
 }
 
 /* Botón de enviar */
@@ -162,4 +168,10 @@ button {
 
 .btn-link:hover {
   text-decoration: underline;
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
 }

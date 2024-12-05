@@ -6,9 +6,9 @@
   </div>
 
   <!-- Contenedor del formulario -->
+  <img src="assets/connect.png" alt="Imagen Connect" class="top-image" />
   <div class="form-container">
     <!-- Imagen connect encima del formulario -->
-    <img src="assets/connect.png" alt="Imagen Connect" class="top-image" />
 
     <!-- Formulario reactivo -->
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
@@ -21,14 +21,16 @@
           formControlName="correo"
           placeholder="Ingresa tu correo"
           class="form-control"
-          required
-        />
+          required />
         <!-- Mensajes de error dinámicos -->
-        <div *ngIf="loginForm.get('correo')?.invalid && loginForm.get('correo')?.touched">
-          <small *ngIf="loginForm.get('correo')?.errors?.['required']" class="error-text">
+        <div
+          *ngIf="loginForm.get('correo')?.invalid && loginForm.get('correo')?.touched">
+          <small *ngIf="loginForm.get('correo')?.errors?.['required']"
+            class="error-text">
             El correo es obligatorio.
           </small>
-          <small *ngIf="loginForm.get('correo')?.errors?.['email']" class="error-text">
+          <small *ngIf="loginForm.get('correo')?.errors?.['email']"
+            class="error-text">
             Ingresa un correo válido.
           </small>
         </div>
@@ -43,14 +45,16 @@
           formControlName="contrasena"
           placeholder="Ingresa tu contraseña"
           class="form-control"
-          required
-        />
+          required />
         <!-- Mensajes de error dinámicos -->
-        <div *ngIf="loginForm.get('contrasena')?.invalid && loginForm.get('contrasena')?.touched">
-          <small *ngIf="loginForm.get('contrasena')?.errors?.['required']" class="error-text">
+        <div
+          *ngIf="loginForm.get('contrasena')?.invalid && loginForm.get('contrasena')?.touched">
+          <small *ngIf="loginForm.get('contrasena')?.errors?.['required']"
+            class="error-text">
             La contraseña es obligatoria.
           </small>
-          <small *ngIf="loginForm.get('contrasena')?.errors?.['minlength']" class="error-text">
+          <small *ngIf="loginForm.get('contrasena')?.errors?.['minlength']"
+            class="error-text">
             La contraseña debe tener al menos 6 caracteres.
           </small>
         </div>
@@ -62,7 +66,8 @@
       </div>
 
       <!-- Botones -->
-      <button type="submit" class="btn btn-primary" [disabled]="loading || loginForm.invalid">
+      <button type="submit" class="btn btn-primary"
+        [disabled]="loading || loginForm.invalid">
         {{ loading ? 'Cargando...' : 'INICIAR SESIÓN' }}
       </button>
       <button type="button" class="btn btn-link" (click)="navigateToRegister()">

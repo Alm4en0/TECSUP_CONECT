@@ -2,8 +2,8 @@ const jwt = require("jsonwebtoken");
 const Usuario = require("../models/User");
 
 const authenticate = (req, res, next) => {
-  const token = req.header("Authorization")?.split(" ")[1]; // Extrae el token del encabezado
-  
+  const token = req.header("Authorization")?.split(" ")[1];
+
   if (!token) {
     return res.status(401).json({ mensaje: "No se proporcionó un token." });
   }

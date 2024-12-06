@@ -1,6 +1,5 @@
 const Curso = require("../models/Curso");
 
-// Crear un nuevo curso
 exports.createCurso = async (req, res) => {
   try {
     const { nombre, descripcion, carreraId } = req.body;
@@ -26,7 +25,6 @@ exports.createCurso = async (req, res) => {
   }
 };
 
-// Obtener todos los cursos
 exports.getCursos = async (req, res) => {
   try {
     const cursos = await Curso.find().populate("carreraId", "nombre");
@@ -38,7 +36,6 @@ exports.getCursos = async (req, res) => {
   }
 };
 
-// Obtener un curso por ID
 exports.getCursoById = async (req, res) => {
   try {
     const { id } = req.params;
@@ -56,7 +53,6 @@ exports.getCursoById = async (req, res) => {
   }
 };
 
-// Actualizar un curso
 exports.updateCurso = async (req, res) => {
   try {
     const { id } = req.params;
@@ -72,22 +68,18 @@ exports.updateCurso = async (req, res) => {
       return res.status(404).json({ mensaje: "Curso no encontrado" });
     }
 
-    res
-      .status(200)
-      .json({
-        mensaje: "Curso actualizado exitosamente",
-        curso: cursoActualizado,
-      });
+    res.status(200).json({
+      mensaje: "Curso actualizado exitosamente",
+      curso: cursoActualizado,
+    });
   } catch (error) {
     if (error.code === 11000) {
       res.status(400).json({ mensaje: "El nombre del curso ya existe" });
     } else {
-      res
-        .status(500)
-        .json({
-          mensaje: "Error al actualizar el curso",
-          error: error.message,
-        });
+      res.status(500).json({
+        mensaje: "Error al actualizar el curso",
+        error: error.message,
+      });
     }
   }
 };

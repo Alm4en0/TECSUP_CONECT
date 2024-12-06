@@ -5,20 +5,17 @@ const crearRol = async (req, res) => {
   try {
     const { nombre, descripcion, permisos } = req.body;
 
-    // Validación básica
     if (!nombre) {
       return res
         .status(400)
         .json({ mensaje: "El nombre del rol es requerido" });
     }
 
-    // Verificar si el rol ya existe
     const rolExistente = await Rol.findOne({ nombre });
     if (rolExistente) {
       return res.status(400).json({ mensaje: "El rol ya existe" });
     }
 
-    // Crear un nuevo rol
     const nuevoRol = new Rol({
       nombre,
       descripcion,

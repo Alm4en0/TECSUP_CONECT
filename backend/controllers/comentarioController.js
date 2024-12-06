@@ -20,12 +20,10 @@ exports.createComentario = async (req, res) => {
       $push: { comentarios: nuevoComentario._id },
     });
 
-    res
-      .status(201)
-      .json({
-        mensaje: "Comentario creado exitosamente",
-        comentario: nuevoComentario,
-      });
+    res.status(201).json({
+      mensaje: "Comentario creado exitosamente",
+      comentario: nuevoComentario,
+    });
   } catch (error) {
     res
       .status(500)
@@ -33,7 +31,6 @@ exports.createComentario = async (req, res) => {
   }
 };
 
-// Obtener comentarios por Post ID
 exports.getComentariosByPost = async (req, res) => {
   try {
     const { postId } = req.params;
@@ -44,12 +41,10 @@ exports.getComentariosByPost = async (req, res) => {
 
     res.status(200).json(comentarios);
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        mensaje: "Error al obtener los comentarios",
-        error: error.message,
-      });
+    res.status(500).json({
+      mensaje: "Error al obtener los comentarios",
+      error: error.message,
+    });
   }
 };
 
@@ -69,23 +64,18 @@ exports.updateComentario = async (req, res) => {
       return res.status(404).json({ mensaje: "Comentario no encontrado" });
     }
 
-    res
-      .status(200)
-      .json({
-        mensaje: "Comentario actualizado exitosamente",
-        comentario: comentarioActualizado,
-      });
+    res.status(200).json({
+      mensaje: "Comentario actualizado exitosamente",
+      comentario: comentarioActualizado,
+    });
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        mensaje: "Error al actualizar el comentario",
-        error: error.message,
-      });
+    res.status(500).json({
+      mensaje: "Error al actualizar el comentario",
+      error: error.message,
+    });
   }
 };
 
-// Eliminar un comentario
 exports.deleteComentario = async (req, res) => {
   try {
     const { id } = req.params;
@@ -96,18 +86,15 @@ exports.deleteComentario = async (req, res) => {
       return res.status(404).json({ mensaje: "Comentario no encontrado" });
     }
 
-    // Eliminar el comentario del post asociado
     await Post.findByIdAndUpdate(comentarioEliminado.post, {
       $pull: { comentarios: comentarioEliminado._id },
     });
 
     res.status(200).json({ mensaje: "Comentario eliminado exitosamente" });
   } catch (error) {
-    res
-      .status(500)
-      .json({
-        mensaje: "Error al eliminar el comentario",
-        error: error.message,
-      });
+    res.status(500).json({
+      mensaje: "Error al eliminar el comentario",
+      error: error.message,
+    });
   }
 };

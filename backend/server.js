@@ -1,13 +1,13 @@
 const express = require("express");
 require("dotenv").config();
 const cors = require("cors");
+const connectToDB = require("./config/db");
 const passport = require("passport");
 const userRoutes = require("./routes/userRoutes");
 const carreraRoutes = require("./routes/carreraRoutes");
 const postRoutes = require("./routes/postRoutes");
 const cursoRoutes = require("./routes/cursoRoutes");
 const comentarioRoutes = require("./routes/comentarioRoutes");
-const connectToDB = require("./config/db");
 
 // Inicializar aplicación Express
 const app = express();

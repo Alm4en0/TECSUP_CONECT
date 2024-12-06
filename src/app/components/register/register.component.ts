@@ -1,8 +1,15 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { CarrerasService } from '../../services/carreras.service';
 
 @Component({
   selector: 'app-register',
@@ -16,11 +23,14 @@ export class RegisterComponent {
   loading = false;
   errorMessage: string | null = null;
   user: any;
+  carreras: any[] = [];
+  ciclos: string[] = [];
 
   constructor(
     private fb: FormBuilder,
     private http: HttpClient,
-    private router: Router
+    private router: Router,
+    private carrerasService: CarrerasService
   ) {
     // Crear el formulario
     this.registerForm = this.fb.group({
@@ -34,10 +44,13 @@ export class RegisterComponent {
     });
 
     // Cambiar validación del ciclo dependiendo del rol
-    this.registerForm.get('rol')?.valueChanges.subscribe(rol => {
+    this.registerForm.get('rol')?.valueChanges.subscribe((rol) => {
       const cicloControl = this.registerForm.get('ciclo');
       if (rol === 'estudiante') {
-        cicloControl?.setValidators([Validators.required, Validators.pattern('^[1-9]+[0-9]*$')]);
+        cicloControl?.setValidators([
+          Validators.required,
+          Validators.pattern('^[1-9]+[0-9]*$'),
+        ]);
       } else {
         cicloControl?.clearValidators();
         cicloControl?.setValue(''); // Limpiar el valor de ciclo si es profesor
@@ -46,8 +59,31 @@ export class RegisterComponent {
     });
   }
 
-  carreraId: string[] = ['Ingeniería de Software', 'Diseño Gráfico', 'Redes y Comunicaciones'];
-  ciclo: string[] = ['1', '2', '3', '4', '5', '6'];
+  ngOnInit(): void {
+    this.carrerasService.getCarreras().subscribe({
+      next: (data) => {
+        this.carreras = data;
+      },
+      error: (err) => {
+        this.errorMessage = 'No se pudieron cargar las carreras.';
+      },
+    });
+
+    // Si seleccionan una carrera, actualizamos los ciclos
+    this.registerForm.get('carreraId')?.valueChanges.subscribe((carreraId) => {
+      const selectedCarrera = this.carreras.find(
+        (carrera) => carrera._id === carreraId
+      );
+      if (selectedCarrera) {
+        this.ciclos = Array.from(
+          { length: selectedCarrera.numeroCiclos },
+          (_, i) => (i + 1).toString()
+        );
+      } else {
+        this.ciclos = [];
+      }
+    });
+  }
 
   onSubmit() {
     // Validar si el formulario es inválido
@@ -62,17 +98,19 @@ export class RegisterComponent {
     this.errorMessage = null;
 
     // Enviar los datos al servidor
-    this.http.post('http://localhost:3000/api/users/register', this.registerForm.value).subscribe({
-      next: () => {
-        this.loading = false;
-        alert('Usuario registrado exitosamente.');
-        this.router.navigate(['/login']);
-      },
-      error: (err) => {
-        this.loading = false;
-        this.errorMessage = err.error.mensaje || 'Error al registrarse.';
-      },
-    });
+    this.http
+      .post('http://localhost:3000/api/users/register', this.registerForm.value)
+      .subscribe({
+        next: () => {
+          this.loading = false;
+          alert('Usuario registrado exitosamente.');
+          this.router.navigate(['/login']);
+        },
+        error: (err) => {
+          this.loading = false;
+          this.errorMessage = err.error.mensaje || 'Error al registrarse.';
+        },
+      });
 
     // Limpiar los campos del formulario
     this.limpiarCampos();

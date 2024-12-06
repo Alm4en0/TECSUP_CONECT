@@ -2,10 +2,11 @@
   <div class="image-container">
     <img src="assets/blog.png" alt="Left Image" />
   </div>
-  <img src="assets/connect.png" alt="Top Image" class="top-image" />
   <div class="form-container">
-    
-    <form (ngSubmit)="onSubmit()">
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <div class="form-group-inline">
         <div class="form-group">
           <label for="nombres">Nombres</label>
@@ -13,7 +14,8 @@
         </div>
         <div class="form-group">
           <label for="apellidos">Apellido</label>
-          <input id="apellidos" type="text" formControlName="apellidos" required />
+          <input id="apellidos" type="text" formControlName="apellidos"
+            required />
         </div>
       </div>
 
@@ -24,41 +26,45 @@
 
       <div class="form-group">
         <label for="contrasena">Contraseña</label>
-        <input id="contrasena" type="password" formControlName="contrasena" required />
+        <input id="contrasena" type="password" formControlName="contrasena"
+          required />
       </div>
 
       <div class="checkbox-group">
-        <div>
-          <label for="profesor">
-            <input type="radio" id="profesor" [value]="'profesor'" formControlName="rol" />
-            Profesor
-          </label>
-        </div>
-        <div>
-          <label for="estudiante">
-            <input type="radio" id="estudiante" [value]="'estudiante'" formControlName="rol" />
-            Estudiante
-          </label>
-        </div>
+        <label>
+          <input type="radio" formControlName="rol" value="profesor" /> Profesor
+        </label>
+        <label>
+          <input type="radio" formControlName="rol" value="estudiante" />
+          Estudiante
+        </label>
       </div>
 
       <div class="form-group-inline">
         <div class="form-group">
           <label for="carrera">Carrera</label>
           <select id="carrera" formControlName="carreraId">
-            <option *ngFor="let carreraId of carreraId" [value]="carreraId">{{ carreraId }}</option>
+            <option *ngFor="let carrera of carreras" [value]="carrera._id">
+              {{ carrera.nombre }}
+            </option>
           </select>
         </div>
-        <div class="form-group" *ngIf="registerForm.get('rol')?.value === 'estudiante'">
+        <div class="form-group"
+          *ngIf="registerForm.get('rol')?.value === 'estudiante'">
           <label for="ciclo">Ciclo</label>
           <select id="ciclo" formControlName="ciclo">
-            <option *ngFor="let ciclo of ciclo" [value]="ciclo">{{ ciclo }}</option>
+            <option *ngFor="let ciclo of ciclos" [value]="ciclo">{{ ciclo
+              }}</option>
           </select>
         </div>
       </div>
 
-      <button type="submit" class="btn btn-primary">REGISTRARSE</button>
-      <button type="button" class="btn btn-link" (click)="navigateToLogin()">INICIO DE SESION</button>
+      <button type="submit" class="btn btn-primary" [disabled]="loading">
+        REGISTRARSE
+      </button>
+      <button type="button" class="btn btn-link" (click)="navigateToLogin()">
+        INICIO DE SESION
+      </button>
     </form>
   </div>
 </div>

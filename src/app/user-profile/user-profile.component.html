@@ -1,6 +1,5 @@
 <div class="user-profile">
   <app-sidebar></app-sidebar>
-  <!-- Cabecera del perfil -->
   <div class="profile-header">
     <div class="profile-img-container">
       <img [src]="user.profileImage" alt="User Profile" class="profile-img" />
@@ -23,10 +22,10 @@
 
   <!-- Tabs de los blogs -->
   <div class="tabs">
-    <button (click)="setTab('posts')" [class.active]="activeTab === 'posts'">Posts</button>
-    <button (click)="setTab('saved')" [class.active]="activeTab === 'saved'">Saved</button>
+    <button (click)="setTab('posts')"
+      [class.active]="activeTab === 'posts'">Posts</button>
+    <button (click)="setTab('saved')"
+      [class.active]="activeTab === 'saved'">Saved</button>
   </div>
 
-  <!-- Sección de blogs filtrados -->
-  <app-user-blogs [blogs]="filteredBlogs"></app-user-blogs>
 </div>

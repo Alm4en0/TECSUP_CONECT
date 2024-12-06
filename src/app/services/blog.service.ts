@@ -1,65 +1,30 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class BlogService {
-  private blogs = [
-    {
-      id: 1,
-      title: '¿Qué es Angular y cómo empezar?',
-      user: { name: 'Jane Doe', profile: 'https://via.placeholder.com/50' },
-      date: '2024-12-01',
-      content: 'Contenido del blog informativo 1. Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-      type: 'informativo',
-      image: 'https://via.placeholder.com/600x300',
-    },
-    {
-      id: 2,
-      title: 'Resolviendo dudas de programación',
-      user: { name: 'John Smith', profile: 'https://via.placeholder.com/50' },
-      date: '2024-11-29',
-      content: 'Contenido del blog consulta 1. Curabitur pharetra, enim id facilisis ultricies, nunc urna cursus nunc.',
-      type: 'consulta',
-      image: '',
-    },
-    {
-      id: 3,
-      user: { name: 'Alice Johnson', profile: 'https://via.placeholder.com/50' },
-      date: '2024-11-25',
-      content: 'Contenido del blog informativo 2. Proin luctus mi ut ligula feugiat, non vulputate augue pharetra.',
-      type: 'informativo',
-    },
-    {
-      id: 4,
-      user: { name: 'Bob Brown', profile: 'https://via.placeholder.com/50' },
-      date: '2024-11-20',
-      content: 'Contenido del blog consulta 2. Fusce facilisis tortor id libero tempor, id facilisis ligula laoreet.',
-      type: 'consulta',
-    },
-  ];
+  private apiUrl = 'http://localhost:3000/api/posts';
 
-  getBlogs(type: string = '', pageIndex: number = 0, pageSize: number = 5) {
-    let filteredBlogs = this.blogs;
+  constructor(private http: HttpClient) {}
 
-    // Filtrado por tipo (informativo o consulta)
-    if (type) {
-      filteredBlogs = this.blogs.filter(blog => blog.type === type);
-    }
+  getBlogs(
+    type: string,
+    pageIndex: number,
+    pageSize: number
+  ): Observable<{ blogs: any[]; totalBlogs: number }> {
+    const token = localStorage.getItem('authToken');
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
 
-    // Paginación
-    const startIndex = pageIndex * pageSize;
-    const paginatedBlogs = filteredBlogs.slice(startIndex, startIndex + pageSize);
-
-    return {
-      blogs: paginatedBlogs,
-      totalBlogs: filteredBlogs.length,
-    };
+    return this.http.get<{ blogs: any[]; totalBlogs: number }>(
+      `${this.apiUrl}?type=${type}&pageIndex=${pageIndex}&pageSize=${pageSize}`,
+      { headers }
+    );
   }
-  getBlogById(id: number) {
-    return this.blogs.find(blog => blog.id === id);
-  }
-  
 
+  getBlogById(id: string) {
+    return this.http.get(`${this.apiUrl}/${id}`);
+  }
 }
-

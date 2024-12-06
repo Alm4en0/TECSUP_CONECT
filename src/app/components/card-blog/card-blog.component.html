@@ -1,20 +1,24 @@
+
 <div class="card-container" *ngFor="let blog of blogs">
-  <a [routerLink]="['/blog', blog.id]" class="card-link">
+  <a [routerLink]="['/blog', blog._id]" class="card-link">
     <div class="card">
       <div class="card-header">
-        <img [src]="blog.user.profile" alt="User Profile" class="profile-img" />
+        <img [src]="blog.autor?.profile" alt="User Profile"
+          class="profile-img" />
         <div class="user-info">
-          <p class="user-name">{{ blog.user.name }}</p>
-          <p class="post-date">{{ blog.date }}</p>
+          <p class="user-name">{{ blog.autor?.name }}</p>
+          <p class="post-date">{{ blog.creadoEl | date: 'short' }}</p>
         </div>
       </div>
       <div class="card-body">
-        <p class="blog-content">{{ blog.content | slice: 0:300 }}...</p>
+        <p class="blog-content">{{ blog.contenido | slice: 0:300 }}...</p>
       </div>
       <div class="card-footer">
         <div class="blog-buttons">
-          <button [ngClass]="{ active: blog.type === 'informativo' }">Informativo</button>
-          <button [ngClass]="{ active: blog.type === 'consulta' }">Consulta</button>
+          <button
+            [ngClass]="{ active: blog.tipo === 'informativo' }">Informativo</button>
+          <button
+            [ngClass]="{ active: blog.tipo === 'consulta' }">Consulta</button>
         </div>
         <div class="blog-icons">
           <i class="icon fa fa-thumbs-up"></i>

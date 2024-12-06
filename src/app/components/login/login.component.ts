@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -23,19 +28,16 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private authService: AuthUserService
   ) {
-    // Crear el formulario
     this.loginForm = this.fb.group({
       correo: ['', [Validators.required, Validators.email]],
       contrasena: ['', [Validators.required, Validators.minLength(6)]],
     });
   }
 
-
   ngOnInit(): void {
     if (this.authService.isAutenticated()) {
-      this.router.navigate(['/home']);  // Redirige al home si está autenticado
+      this.router.navigate(['/home']);
     }
-
   }
 
   onSubmit() {
@@ -46,23 +48,23 @@ export class LoginComponent implements OnInit {
 
     const { correo, contrasena } = this.loginForm.value;
 
-    this.http.post('http://localhost:3000/api/users/login', { correo, contrasena }).subscribe({
-      next: (response: any) => {
-        this.loading = false;
-        localStorage.setItem('authToken', response.token);
-        localStorage.setItem('userId', response.userId);
-        this.router.navigate(['/home']); 
-
-      },
-      error: (err) => {
-        this.loading = false;
-        this.errorMessage = err.error?.mensaje || 'Error al iniciar sesión.';
-      },
-    });
+    this.http
+      .post('http://localhost:3000/api/users/login', { correo, contrasena })
+      .subscribe({
+        next: (response: any) => {
+          this.loading = false;
+          localStorage.setItem('authToken', response.token);
+          localStorage.setItem('userId', response.userId);
+          this.router.navigate(['/home']);
+        },
+        error: (err) => {
+          this.loading = false;
+          this.errorMessage = err.error?.mensaje || 'Error al iniciar sesión.';
+        },
+      });
   }
 
   navigateToRegister() {
     this.router.navigate(['/register']);
   }
-  
 }
